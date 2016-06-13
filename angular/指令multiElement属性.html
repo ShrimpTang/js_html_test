@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="app">
+<head>
+    <meta charset="UTF-8">
+    <title>multiElement true</title>
+</head>
+<body ng-controller="ctrl">
+<a href="http://www.cnblogs.com/sagacite/p/4622008.html" target="_blank">原文链接</a>
+<div my-directive-start></div>
+<div my-directive-end></div>
+<table border="1">
+    <tr ng-repeat-start="l in  list">
+        <td>{{l.name}}</td>
+        <td></td>
+    </tr>
+    <tr ng-repeat-end>
+        <td>{{l.age}}</td>
+        <td>{{l.gender}}</td>
+    </tr>
+</table>
+<script src="../node_modules/angular/angular.js"></script>
+<script>
+    angular.module('app', [])
+            .controller('ctrl', function ($scope) {
+                $scope.list = [{name: '张三', age: 26, gender: '男'}, {name: '李四', age: 24, gender: '男'}];
+            })
+            .directive('myDirective', function () {
+                return {
+                    multiElement:true,
+                    link: function (scope,element,attrs) {
+                        console.log(element);
+                    }
+                }
+            })
+</script>
+</body>
+</html>
