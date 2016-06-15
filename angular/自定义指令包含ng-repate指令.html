@@ -5,9 +5,14 @@
     <title>自定义指令包含ng-repate指令</title>
 </head>
 <body ng-controller="ctrl">
+
 <list datas="list">
     {{data.name}}
 </list>
+
+<div list-other datas="list">
+    {{data.name}}
+</div>
 <script src="../node_modules/angular/angular.js"></script>
 <script>
     angular.module('app', [])
@@ -33,7 +38,8 @@
                         $scope.datas  = datas;
                     }
                 }
-            }).directive('listRender', function () {
+            })
+            .directive('listRender', function () {
                 return {
                     require:'^list',
                     transclude:true,
@@ -44,8 +50,26 @@
                         })
                     }
                 }
-
-    })
+            })
+            .directive('listOther',function($compile){
+                var template= '<li  ng-repeat="data in datas"></li>',transclude,ul;
+                return {
+                    scope:{
+                        datas:"="
+                    },
+                    restrict:'A',
+                    compile: function (ele,attrs) {
+                        transclude = ele.html();
+                        ele.html('');
+                        return function (scope, elem) {
+                            var tpl = angular.element(template);
+                            tpl.append(transclude);
+                            $compile( ul = angular.element('<ul></ul>').append(tpl))(scope);
+                            elem.append(ul);
+                        }
+                    }
+                }
+            })
 </script>
 </body>
 </html>
