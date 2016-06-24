@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="app">
+<head>
+    <meta charset="UTF-8">
+    <title>输入框只让输入数字</title>
+</head>
+<body ng-controller="ctrl">
+<input type="text" ng-model="myText" name="inputName" positive-number-only>
+<script src="../node_modules/angular/angular.js"></script>
+<script>
+    angular.module('app', [])
+            .controller('ctrl', function ($scope) {
+                $scope.onlyNumbers = /^\d+$/;
+                $scope.myText = 123
+            }).directive('positiveNumberOnly', function () {
+                    return {
+                        require: 'ngModel',
+                        link: function (scope, element, attrs, modelCtrl) {
+                            modelCtrl.$parsers.push(function (inputValue,a,b,c) {
+                                console.log(a,b,c)
+                                var transformedInput = inputValue ? inputValue.replace(/[^\d]/g, '') : null;
+                                if (transformedInput != inputValue) {
+                                    modelCtrl.$setViewValue(transformedInput);
+                                    modelCtrl.$render();
+                                }
+                                return transformedInput;
+                            });
+                        }
+                    };
+    });
+
+
+</script>
+</body>
+</html>

@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>圣杯布局</title>
+    <style type="text/css">
+        * {
+            padding: 0px;
+            margin: 0px;
+        }
+
+        .HolyGrail {
+            display: flex;
+            min-height: 100vh;
+            flex-direction: column;
+
+            background-color: #ECEFF1;
+        }
+
+        header, footer {
+            flex: .1;
+        }
+
+        .HolyGrail-body {
+            display: flex;
+            flex: 1;
+        }
+
+        .HolyGrail-content {
+            flex: 1;
+            background-color: #90A4AE;
+        }
+
+        .HolyGrail-nav, .HolyGrail-ads {
+            flex: 0 0 12em;
+            background-color: #546E7A;
+        }
+
+        .HolyGrail-nav {
+            order: -1;
+        }
+
+        .inputAddOn {
+            display: flex;
+        }
+
+        .inputAddOn-filed {
+            flex: 1
+        }
+
+        .Media {
+            display: flex;
+            align-items: flex-start;
+        }
+
+        .Media-figure {
+            margin-right: 1em;
+        }
+
+        .Media-body {
+            flex: 1
+        }
+
+        .parent {
+            width: 400px;
+            display: flex;
+            background-color: #00ACC1;
+            flex-flow: row wrap;
+            height: 400px;
+            align-content: flex-start;
+        }
+        .child{
+            flex: 0 0 25%;
+            height:50px;
+            box-sizing: border-box;
+            border:1px solid #47465d;
+            background-color: lavender;
+        }
+
+    </style>
+</head>
+<body class="HolyGrail">
+<header>header</header>
+<div class="HolyGrail-body">
+    <main class="HolyGrail-content">
+        <div class="inputAddOn">
+            <span>Title</span>
+            <input class="inputAddOn-filed"/>
+        </div>
+        <div class="Media">
+            <img class="Media-figure"
+                 src="http://photo.d7vg.com/avatar/JP0031/CUSA01054_00-AVATAR1505NEP010_085CC956F3B47D170BED_l.png@50w.png">
+            <p class="Media-body">
+                推荐收集顺序为：全委托清完（不包含农场委托，紫色dlc委托对应七魔王，主线没找齐皮卡头的可以用这个任务补齐）→四楼离线竞技场打完→然后照着巴士奖牌表（个别有错误，有问题可以问）和日站奖牌表（@xiaoheiyan
+                提供，个别也有错误）把所有扭蛋机徽章摇出（10台扭蛋机，每台机器30个奖牌）→一遍刷怪（数码兽出现地点和掉落物品）一边刷委托</p>
+        </div>
+
+        <div class="parent">
+            <div class="child">1</div>
+            <div class="child">2</div>
+            <div class="child">3</div>
+            <div class="child">4</div>
+            <div class="child">5</div>
+            <div class="child">6</div>
+            <div class="child">7</div>
+        </div>
+    </main>
+    <nav class="HolyGrail-nav">HolyGrail-nav</nav>
+    <aside class="HolyGrail-ads">HolyGrail-ads</aside>
+</div>
+<footer>footer</footer>
+</body>
+</html>
