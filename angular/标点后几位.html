@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="app">
+<head>
+    <meta charset="UTF-8">
+    <title>标点后几位</title>
+</head>
+<body ng-controller="ctrl">
+<input type="text" ng-model="myText" name="inputName" decimal-count="3">
+<script src="../node_modules/angular/angular.js"></script>
+<script>
+    angular.module('app', [])
+            .controller('ctrl', function ($scope) {
+                $scope.myText = '123.45'
+            }).directive('decimalCount', function () {
+        return {
+            require: 'ngModel',
+            link: function (scope, element, attrs, ngModel) {
+                var count = attrs.decimalCount;
+                scope.$watch(attrs.ngModel, function (newVal, oldVal) {
+                    console.log(newVal,oldVal)
+                    console.log($(element).selectionStart)
+//                    newVal = newVal+'';
+//                    var lastStr = '';
+//                    var lastPoint = newVal.lastIndexOf('.')
+//                    if (lastPoint > -1) {
+//                        lastStr = newVal.substring(lastPoint + 1);
+//                        if (lastStr.length > count) {
+//                            lastStr = lastStr.substring(0,count);
+//                        } else {
+//                            lastStr += '0'.repeat(count - lastStr.length);
+//                        }
+//                        newVal = newVal.substring(0, lastPoint)+'.'+lastStr;
+//                    } else {
+//                        newVal = newVal + '.'+('0'.repeat(count));
+//                    }
+
+                    ngModel.$setViewValue(newVal.replace(/2/g,'0'))
+                    ngModel.$render();
+                })
+            }
+        };
+    });
+
+
+</script>
+</body>
+</html>
