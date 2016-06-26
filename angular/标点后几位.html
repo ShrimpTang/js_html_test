@@ -17,25 +17,27 @@
             link: function (scope, element, attrs, ngModel) {
                 var count = attrs.decimalCount;
                 scope.$watch(attrs.ngModel, function (newVal, oldVal) {
-                    console.log(newVal,oldVal)
-                    console.log($(element).selectionStart)
-//                    newVal = newVal+'';
-//                    var lastStr = '';
-//                    var lastPoint = newVal.lastIndexOf('.')
-//                    if (lastPoint > -1) {
-//                        lastStr = newVal.substring(lastPoint + 1);
-//                        if (lastStr.length > count) {
-//                            lastStr = lastStr.substring(0,count);
-//                        } else {
-//                            lastStr += '0'.repeat(count - lastStr.length);
-//                        }
-//                        newVal = newVal.substring(0, lastPoint)+'.'+lastStr;
-//                    } else {
-//                        newVal = newVal + '.'+('0'.repeat(count));
-//                    }
+                    console.log(newVal, oldVal)
+                    console.log(element[0].selectionStart)
+                    var selectionStart = element[0].selectionStart
+                    newVal = newVal+'';
+                    var lastStr = '';
+                    var lastPoint = newVal.lastIndexOf('.')
+                    if (lastPoint > -1) {
+                        lastStr = newVal.substring(lastPoint + 1);
+                        if (lastStr.length > count) {
+                            lastStr = lastStr.substring(0,count);
+                        } else {
+                            lastStr += '0'.repeat(count - lastStr.length);
+                        }
+                        newVal = newVal.substring(0, lastPoint)+'.'+lastStr;
+                    } else {
+                        newVal = newVal + '.'+('0'.repeat(count));
+                    }
 
-                    ngModel.$setViewValue(newVal.replace(/2/g,'0'))
+                    ngModel.$setViewValue(newVal)
                     ngModel.$render();
+                    element[0].setSelectionRange(selectionStart, selectionStart)
                 })
             }
         };
