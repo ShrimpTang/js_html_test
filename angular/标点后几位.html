@@ -10,15 +10,38 @@
 <script>
     angular.module('app', [])
             .controller('ctrl', function ($scope) {
-                $scope.myText = '123.45'
+                $scope.myText = '123.454'
             }).directive('decimalCount', function () {
         return {
             require: 'ngModel',
             link: function (scope, element, attrs, ngModel) {
                 var count = attrs.decimalCount;
                 scope.$watch(attrs.ngModel, function (newVal, oldVal) {
-                    console.log(newVal, oldVal)
-                    console.log(element[0].selectionStart)
+                   // console.log(newVal, oldVal)
+                    //console.log(element[0].selectionStart);
+
+                    var startIndex,endIndex;
+                    for(var i =0;i<oldVal.length;i++){
+                        var flag =   oldVal.charAt(i)==newVal.charAt(i)
+                        if(!flag){
+                            startIndex = i;
+                            break;
+                        }
+                    }
+
+                    for(var i = oldVal.length-1,z=newVal.length-1;i>=0;i--,z--){
+                        var flag = oldVal.charAt(i)==newVal.charAt(z)
+                        if(!flag){
+                            endIndex=i;
+                            break
+                        }
+                    }
+
+                    var diff = oldVal.substring(startIndex,endIndex+1)
+                    console.log(diff)
+
+
+
                     var selectionStart = element[0].selectionStart
                     newVal = newVal+'';
                     var lastStr = '';
