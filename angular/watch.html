@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="app">
+<head>
+    <meta charset="UTF-8">
+    <title>multiElement true</title>
+</head>
+<body ng-controller="ctrl">
+<input ng-model="data">
+<script src="../node_modules/angular/angular.js"></script>
+<script>
+    angular.module('app', [])
+            .controller('ctrl', function ($scope) {
+                $scope.data = 'qc1'
+                $scope.$watch('data', function (n,o) {
+                    console.log(n,o)
+                })
+            })
+
+</script>
+</body>
+</html>
