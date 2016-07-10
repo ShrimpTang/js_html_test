@@ -1,0 +1,47 @@
+<!doctype html>
+<html lang="en" ng-app="app">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+<body ng-controller="ctrl">
+<input  ng-model="test" ng-change="show()" formatted-date>
+<button ng-click="test='fnfnf'">W</button>
+<script src="../node_modules/jquery/dist/jquery.js"></script>
+<script src="../node_modules/angular/angular.js"></script>
+<script src="../node_modules/moment/moment.js"></script>
+<script>
+    angular.module('app', [])
+            .controller('ctrl', function ($scope) {
+                $scope.test = '';
+                $scope.show = function () {
+                    console.log($scope.test)
+                }
+                $scope.$watch('test',()=>{
+                    console.log($scope.test)
+                })
+            })
+            .directive('formattedDate', function () {
+                return {
+                    require: 'ngModel',
+                    link: function (scope, element, attrs, modelCtrl) {
+                        modelCtrl.$formatters.push(function (input) {
+                            if (input == null) {
+                                return;
+                            }
+                            console.log(1)
+                            input = input.toString();
+                            return input.toUpperCase();
+                        })
+
+
+                        modelCtrl.$render = function(){
+                            element.val(modelCtrl.$viewValue)
+                        }
+                    }
+                }
+            })
+</script>
+</body>
+</html>
+
