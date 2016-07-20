@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>单体模式</title>
+</head>
+<body>
+<script>
+    (function () {//静态属性 示例
+        function Universe() {
+            if (typeof Universe.instance == 'object') {
+                return Universe.instance;
+            }
+            this.start_time = 0;
+            this.bang = 'Big';
+            Universe.instance = this;
+            return this;
+        }
+
+        var uni = new Universe();
+        var uni2= new Universe();
+        console.log(uni == uni2)
+    })();
+
+    (function(){
+        function Universe(){
+            var  instance = this;
+            this.start_time = 0;
+            this.bang = 'Big';
+            Universe = function () {
+                return instance;
+            }
+        }
+        var uni = new Universe();
+        var uni2= new Universe();
+        console.log(uni == uni2)
+    }())
+
+    ;(function(){
+        function Universe(){
+            var instance ;
+            Universe = function Universe() {
+                return instance;
+            }
+            Universe.prototype = this;
+            instance = new Universe();
+            instance.constructor = Universe;
+            instance.start_time = 0;
+            instance.bang = 'Big';
+            return instance
+        }
+        var uni = new Universe();
+        var uni2= new Universe();
+        console.log(uni == uni2)
+    }())
+</script>
+</body>
+</html>

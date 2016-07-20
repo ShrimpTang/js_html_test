@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>策略模式</title>
+</head>
+<body>
+<script>
+    var data = {
+        first_name: 'Super',
+        last_name: 'Man',
+        age: "11",
+        username: "ddd"
+    }
+
+    var validator = {
+        types: {
+            isNotEmpty: {
+                validate: function (value) {
+                    return value !== "";
+                },
+                instructions: '不能为空'
+            },
+            isNumber: {
+                validate: function (value) {
+                    return !isNaN(value)
+                },
+                instructions: '只能为数字'
+            },
+            isAlphaNum: {
+                validate: function (value) {
+                    return !/[^a-z0-9]/.test(value)
+                },
+                instructions: '只能为数字和字母'
+            }
+        },
+        messages: [],
+        config: {},
+        validate: function (data) {
+            this.messages = [];
+            for (var i in data) {
+                if (data.hasOwnProperty(i)) {
+                    var type = this.config[i]
+                    if (!type) {
+                        continue;
+                    }
+                    var checker = this.types[type];
+                    if (!checker) {
+                        throw {
+                            name: 'validation　Error',
+                            message: '没适配的验证规则'
+                        }
+                    }
+                    var result_ok = checker.validate(data[i]);
+                    if (!result_ok) {
+                        this.messages.push('验证' + i + '失败' + checker.instructions);
+                    }
+                }
+            }
+            return this.hasError();
+        },
+        hasError(){
+            return this.messages.length !== 0;
+        }
+    }
+
+    validator.config = {
+        last_name: 'isNotEmpty',
+        age: 'isNumber',
+        username: 'isAlphaNum'
+    }
+
+    var flag = validator.validate(data)
+    console.log(validator.messages.join('\n'))
+    console.log(flag)
+
+</script>
+</body>
+</html>

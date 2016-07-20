@@ -1,0 +1,18 @@
+{
+  "name": "",
+  "description": "",
+  "main": "index.js",
+  "authors": [
+    "tangzx <tangzx@yikeer.com>"
+  ],
+  "license": "ISC",
+  "homepage": "https://github.com/ShrimpTang/js_html_test",
+  "moduleType": [],
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ]
+}

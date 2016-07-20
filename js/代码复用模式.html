@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<script>
+    (function () {//默认模式
+        function Person(name) {
+            this.name = name;
+        }
+
+        Person.prototype.say = function () {
+            console.log(this.name);
+        }
+
+        function Child(name) {
+        }
+
+        inherit(Child, Person);
+
+        function inherit(C, P) {
+            C.prototype = new P();
+        }
+
+        var c = new Child();
+        c.name = 'ccc'
+        c.say()
+    })();
+
+    (function () {//借用构造函数
+        function Person(name) {
+            this.name = name;
+        }
+
+        Person.prototype.say = function () {
+            console.log(this.name);
+        }
+
+        function Child(name) {
+            Person.apply(this, arguments);
+        }
+
+
+        var c = new Child('ccc222');
+        //c.say() undefined
+    })();
+
+
+    (function () {//借用和设置原型
+        function Person(name) {
+            this.name = name;
+        }
+
+        Person.prototype.say = function () {
+            console.log(this.name);
+        }
+
+        function Child(name) {
+            Person.apply(this, arguments);
+        }
+
+        Child.prototype = new Person()
+
+
+        var c = new Child('借用和设置原型');
+        c.say()
+    })();
+
+    (function () {//共享原型
+        function Person(name) {
+            this.name = name;
+        }
+
+        Person.prototype.say = function () {
+            console.log(this.name);
+        }
+
+        function Child(name) {
+            Person.apply(this, arguments);
+        }
+
+        function inherit(C, P) {
+            C.prototype = P.prototype;
+        }
+
+        inherit(Child, Person);
+
+        //Child.prototype = new Person()
+
+
+        var c = new Child('共享原型');
+        c.say()
+    })();
+
+
+    (function () {//零时构造函数
+        function Person(name) {
+            this.name = name;
+        }
+
+        Person.prototype.say = function () {
+            console.log(this.name);
+        }
+
+        function Child(name) {
+            Person.apply(this, arguments);
+        }
+
+        var inherit = (function () {
+            return function (C, P) {
+                var F = function () {
+                }
+                F.prototype = P.prototype;
+                C.prototype = new F();
+                C.uber = P.prototype;
+                C.prototype.constructor = C;
+                ;
+            }
+        })();
+        inherit(Child, Person);
+        var c = new Child('零时构造函数');
+        c.say()
+    })();
+
+    (function () {//原型继承
+        var parent = {
+            name: 'papa'
+        }
+        var child = object(parent);
+
+        function object(o) {
+            function F() {
+            };
+            F.prototype = o;
+            return new F();
+        }
+
+        console.log(child.name)
+    })();
+
+
+</script>
+</body>
+</html>

@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>工厂模式</title>
+</head>
+<body>
+<script>
+    (function () {
+        function CarMaker() {
+
+        }
+
+        CarMaker.prototype.drive = function () {
+            console.log(`I have ${this.doors} doors`);
+        }
+
+        CarMaker.factory = function (type) {
+            var constr = type, newcar;
+            if (typeof CarMaker[constr] !== 'function') {
+                throw {
+                    name: 'error',
+                    message: `${constr}不存在`
+                }
+            }
+            if (typeof CarMaker[constr].prototype.drive !== 'function') {
+                CarMaker[constr].prototype = new CarMaker();
+            }
+            newcar = new CarMaker[constr];
+            return newcar;
+        }
+        CarMaker.Compact = function () {
+            this.doors = 4;
+        }
+        CarMaker.Suv = function () {
+            this.doors = 8;
+        }
+
+        var suv = CarMaker.factory('Suv');
+        suv.drive()
+    }());
+</script>
+</body>
+</html>

@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>装饰者模式</title>
+</head>
+<body>
+<script>
+    (function () {
+        function Sale(price) {
+            this.price = price || 100;
+        }
+
+        Sale.prototype.getPrice = function () {
+            return this.price;
+        }
+
+        Sale.decorators = {
+            money: {
+                getPrice: function () {
+                    return "$" + this.uber.getPrice().toFixed(2);
+                }
+            },
+            quebec: {
+                getPrice: function () {
+                    var price = this.uber.getPrice();
+                    price += price * 0.75;
+                    return price
+                }
+            }
+
+        };
+
+        Sale.prototype.decorate = function (decorator) {
+            var F = function () {
+            };
+            var overrides = this.constructor.decorators[decorator];
+            F.prototype = this;
+            var newobj = new F();
+            newobj.uber = F.prototype;
+            for (var i in overrides) {
+                if (overrides.hasOwnProperty(i)) {
+                    newobj[i] = overrides[i]
+                }
+            }
+            return newobj;
+        }
+        var s = new Sale(111);
+        s = s.decorate('quebec');
+        s = s.decorate('money');
+        console.log(s.getPrice())
+    }());
+    ;
+    (function () {
+        function Sale(price) {
+            this.price = price || 100;
+            this.decortors_list = [];
+        }
+
+        Sale.decorators = {
+            money: {
+                getPrice: function (price) {
+                    return "$" + price.toFixed(2);
+                }
+            },
+            quebec: {
+                getPrice: function (price) {
+                    price += price * 0.75;
+                    return price
+                }
+            }
+        };
+
+        Sale.prototype.decorate = function (decorator) {
+            this.decortors_list.push(decorator);
+        };
+
+        Sale.prototype.getPrice = function () {
+            var price = this.price,
+                    i,
+                    max = this.decortors_list.length,
+                    name;
+            for (i = 0; i < max; i++) {
+                name = this.decortors_list[i];
+                price = Sale.decorators[name].getPrice(price);
+            }
+            return price;
+        }
+        var s = new Sale(111);
+        s.decorate('quebec');
+        s.decorate('money');
+        console.log(s.getPrice())
+    }())
+</script>
+</body>
+</html>
