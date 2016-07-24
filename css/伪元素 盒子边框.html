@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style type="text/css">
+        body {
+            background: #f0f0f0;
+        }
+
+        .box h3 {
+            text-align: center;
+            position: relative;
+            top: 80px;
+        }
+
+        .box {
+            width: 70%;
+            height: 200px;
+            background: #FFF;
+            margin: 40px auto;
+        }
+
+        .effect1 {
+            box-shadow: 0 10px 6px -6px #777;
+        }
+
+        .effect2 {
+            position: relative;
+        }
+
+        .effect2::before, .effect2::after {
+            content: "";
+            position: absolute;
+            bottom: 18px;
+            top: 80%;
+            background-color: #2f5454;
+            width: 50%;
+            left: 16px;
+            box-shadow: -1px 10px 15px 6px #808067;
+            z-index: -1;
+            transform: rotate(-3deg);
+        }
+
+        .effect2::after {
+            transform: rotate(3deg);
+            right: 16px;
+            left: auto;
+        }
+
+
+    </style>
+</head>
+<body>
+<div class="box effect1">
+    <h3>Effect 1</h3>
+</div>
+<div class="box effect2">
+    <h3>Effect 2</h3>
+</div>
+</body>
+</html>

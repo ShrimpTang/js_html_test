@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>伪元素</title>
+    <style type="text/css">
+        body {
+            background-color: #90A4AE;
+        }
+
+        .div1:before {
+            content: open-quote;
+        }
+
+        .div1:after {
+            content: "\5B";
+        }
+
+        a {
+            position: relative;
+            display: inline-block;
+            outline: none;
+            text-decoration: none;
+            color: white;
+            font-size: 32px;
+            padding: 5px 10px;
+        }
+
+        a:hover:before, a:hover:after {
+            position: absolute;
+        }
+
+        a:hover:before {
+            content: "\5B";
+            left: -20px;
+
+        }
+
+        a:hover:after {
+            content: "\5D";
+            right: -20px;
+        }
+
+        .container {
+            width: 1280px;
+            margin: 0 auto;
+            font-size: 32px;
+        }
+
+        table {
+            overflow: hidden;
+        }
+
+        td {
+            width: 100px;
+        }
+
+        td, th {
+            position: relative;
+        }
+
+        tr:hover {
+            background-color: #dca7a7;
+        }
+
+        td:hover:after {
+            content: "";
+            height: 10000px;
+            width: 100%;
+            left: 0;
+            top: -5000px;
+            z-index: -1;
+            position: absolute;
+            background-color: #d4dc6f;
+        }
+
+        .post span{
+            font-size: 4em;
+            background-image: linear-gradient(to right,#25B0A9,#FEE603);
+            background-size: 200%;
+            transition :all 0.4s
+        }
+        span:hover{
+            background-position: -100%;
+        }
+    </style>
+</head>
+<body>
+<div class="div1"></div>
+<div class="container">
+    <a href="#">PLAYSTATION</a>
+    <table border="1">
+        <tr>
+            <td>1</td>
+            <td>1</td>
+            <td>1</td>
+            <td>1</td>
+            <td>1</td>
+        </tr>
+        <tr>
+            <td>1</td>
+            <td>1</td>
+            <td>1</td>
+            <td>1</td>
+            <td>1</td>
+        </tr>
+        <tr>
+            <td>1</td>
+            <td>1</td>
+            <td>1</td>
+            <td>1</td>
+            <td>1</td>
+        </tr>
+        <tr>
+            <td>1</td>
+            <td>1</td>
+            <td>1</td>
+            <td>1</td>
+            <td>1</td>
+        </tr>
+        <tr>
+            <td>1</td>
+            <td>1</td>
+            <td>1</td>
+            <td>1</td>
+            <td>1</td>
+        </tr>
+        <tr>
+            <td>1</td>
+            <td>1</td>
+            <td>1</td>
+            <td>1</td>
+            <td>1</td>
+        </tr>
+    </table>
+    <br>
+    <div class="post">
+        <span>PLAYSTATION</span>
+    </div>
+</div>
+
+</body>
+</html>

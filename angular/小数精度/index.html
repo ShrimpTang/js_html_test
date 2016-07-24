@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="app">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body ng-controller="ctrl">
+<input type="text" ng-model="model" input-check="">
+{{model}}
+<script src="../../node_modules/angular/angular.js"></script>
+<script>
+    angular.module('app', [])
+            .controller('ctrl', function ($scope) {
+                $scope.model = "222";
+                $scope.test= function () {
+                    console.log($scope.model)
+                }
+            })
+            .directive('inputCheck', function () {
+                return {
+                    require:'ngModel',
+                    scope:{
+                      ngModel:"="
+                    },
+                    link: function (scope, element, attrs, ngModel) {
+                        console.log(scope.ngModel)
+                        scope.$watch(function(){
+                            return  scope.ngModel
+                        }, function (val) {
+                            if(val=='123'){
+                                scope.ngModel = 'iii'
+
+                            }
+                            console.log(val)
+                        })
+                    }
+                }
+            })
+
+</script>
+</body>
+</html>
